@@ -4,6 +4,6 @@ export interface UserDoc extends Document {
     displayName?: string,
     googleId?: string,
     email: string,
-    birthDate: Date,
+    birthDate?: Date,
     password?: string
 }
