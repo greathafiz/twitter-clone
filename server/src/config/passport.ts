@@ -15,10 +15,9 @@ export default (passport: PassportStatic) => {
       },
       async (accessToken, refreshToken, profile, done) => {
         const newUser = <UserDoc>{
-          displayName: profile.displayName,
+          name: profile.displayName,
           googleId: profile.id,
           email: profile.emails?.[0].value,
-          // birthDate:
         };
         try {
           let user = await User.findOne({ googleId: profile.id });
