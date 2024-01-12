@@ -7,10 +7,17 @@ import { port, mongoUri, sessionSecret } from "./config";
 import passport from "passport";
 import configurePassport from "./config/passport"
 import session from "express-session";
+import cors from "cors"
+import helmet from "helmet";
+import { errorHandlerMiddleware } from "./middlewares/error-handler";
+import { notFoundMiddleware } from "./middlewares/not-found";
 
 configurePassport(passport)
 
 const app: Application = express();
+
+app.use(cors())
+app.use(helmet())
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -20,7 +27,7 @@ app.use(
     secret: sessionSecret,
     resave: false,
     saveUninitialized: false,
-    // store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
+    // store: MongoStore.create({ mongoUrl: mongoUri }),
   })
 );
 
@@ -32,6 +39,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", router());
+app.use(notFoundMiddleware)
+app.use(errorHandlerMiddleware)
 
 const start = async (): Promise<void> => {
   try {

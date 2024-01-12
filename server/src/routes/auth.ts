@@ -15,8 +15,8 @@ export default (router: Router) => {
     "/auth/google/redirect",
     passport.authenticate("google", { failureRedirect: "/" }),
     (req: Request, res: Response) => {
-      // res.redirect("/home");
-      res.send("Callback route");
+      console.log("success");
+      res.redirect("/home");
     }
   );
 };

@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 import { UserDoc } from "../interfaces/UserDoc";
 import bcrypt from "bcryptjs";
 
@@ -27,13 +27,13 @@ const UserSchema = new Schema<UserDoc>(
     website: String,
     tweets: [
       {
-        type: mongoose.Types.ObjectId,
+        type: Types.ObjectId,
         ref: "Tweet",
       },
     ],
     likedTweets: [
       {
-        type: mongoose.Types.ObjectId,
+        type: Types.ObjectId,
         ref: "Tweet",
       },
     ],
